@@ -1,0 +1,21 @@
+
+th.icon {
+	width: 10px;
+}
+th.name {
+	width: 70%;
+}
+
+td.icon {
+	text-align: center;
+	height: 3em;
+}
+
+td p {
+	margin-top: 0.5em;
+	padding-left: 2em;
+}
+
+td span.file, td span.directory {
+	font-size: 1.1em;
+}
