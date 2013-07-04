@@ -24,19 +24,22 @@ $(document).ready(function() {
             iconI.attr("class", "icon-folder-close icon-large");
             nameSpan.attr("class", "directory");
             tr.click(function() {
-                alert(path + file.name);
                 openDirectory(path + file.name, file.name);
-
             });
         } else {
             iconI.attr("class", "icon-file-alt icon-large");
             nameSpan.attr("class", "file");
             tr.click(function() {
-                alert("download " + file.name);
+                openFile(path + file.name);
             });
         }
 
         tbody.append(tr);
+    }
+
+    var openFile = function(file) {
+        var iframe = $("#fileloader");
+        iframe.attr("src", "open?wpath=" + file);
     }
 
     var openDirectory = function(directory, name) {
@@ -44,7 +47,6 @@ $(document).ready(function() {
         tbody.empty();
         tbody.append($("<tr><td></td><td>Carregando...</td></tr>"));
 
-        alert(directory);
         $.ajax({
             type : "GET",
             dataType : "json",

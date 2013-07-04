@@ -19,3 +19,7 @@ td p {
 td span.file, td span.directory {
 	font-size: 1.1em;
 }
+
+#fileloader {
+	display: none;
+}

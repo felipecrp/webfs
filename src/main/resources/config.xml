@@ -13,6 +13,9 @@
 	<mvc:annotation-driven />
 
 	<bean id="lsService" class="webfs.service.LsService"></bean>
+	<bean id="openService" class="webfs.service.OpenService"></bean>
+	
+	
 
 	<mvc:resources mapping="/**" location="/" />
 </beans>
