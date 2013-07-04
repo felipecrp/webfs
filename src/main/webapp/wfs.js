@@ -24,7 +24,9 @@ $(document).ready(function() {
             iconI.attr("class", "icon-folder-close icon-large");
             nameSpan.attr("class", "directory");
             tr.click(function() {
-                openDirectory(file.name);
+                alert(path + file.name);
+                openDirectory(path + file.name, file.name);
+
             });
         } else {
             iconI.attr("class", "icon-file-alt icon-large");
@@ -37,33 +39,21 @@ $(document).ready(function() {
         tbody.append(tr);
     }
 
-    var openDirectory = function(directory) {
+    var openDirectory = function(directory, name) {
         var tbody = $("#filebrowser tbody");
         tbody.empty();
         tbody.append($("<tr><td></td><td>Carregando...</td></tr>"));
-        path = path + "/" + directory;
-        
-        var breadcrumb = $("#path");
-        var crumb = $("<li></li>");
-        var link = $("<a></a>").text(directory);
-        var separator = $("<span></span>").text("/").attr("class", "divider");
-        crumb.append(link);
-        link.after(" ");
-        crumb.append(separator);
-        breadcrumb.append(crumb);
 
-        link.click(function() {
-            path = path;
-            openDirectory(path);
-        });
-
+        alert(directory);
         $.ajax({
             type : "GET",
             dataType : "json",
-            data: { wpath: path },
+            data: { wpath: directory },
             url : "ls",
             success : function(data) {
                 tbody.empty();
+                path = directory + "/";
+                loadBreadcrumb(directory, name);
                 $.each(data, function(index, file) {
                     addFile(file);
                 });
@@ -71,7 +61,29 @@ $(document).ready(function() {
         });
     }
 
-    openDirectory("/");
+    var openRoot = function() {
+        openDirectory("", "Root");
+    }
+
+    var loadBreadcrumb = function(directory, name) {
+        var breadcrumb = $("#path");
+        var crumb = $("<li></li>");
+        var link = $("<a></a>").text(name);
+        var separator = $("<span></span>").text("/").attr("class", "divider");
+        crumb.append(link);
+        link.after(" ");
+        crumb.append(separator);
+        breadcrumb.append(crumb);
+
+        link.click(function() {
+            crumb.nextAll().remove();
+            crumb.remove();
+            openDirectory(directory, name);
+        });
+
+    }
+
+    openRoot();
     
 });
 

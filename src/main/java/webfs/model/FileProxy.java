@@ -3,7 +3,7 @@ package webfs.model;
 import java.io.File;
 
 public class FileProxy {
-	private File file;	
+	private File file;
 	
 	public FileProxy(File file) {
 		this.file = file;
@@ -20,4 +20,5 @@ public class FileProxy {
 	public long getSize() {
 		return file.length();
 	}
+	
 }
