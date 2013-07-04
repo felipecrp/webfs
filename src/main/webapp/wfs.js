@@ -10,11 +10,13 @@ $(document).ready(function() {
         iconTd.append(iconI);
 
         var nameSpan = $("<span></span>").text(file.name);
+        var descriptionP = $("<p></p>").html(file.description).attr("class", "muted");
         var fileTd = $("<td></td>").attr("class", "name");
         fileTd.append(nameSpan);
-
+        fileTd.append(descriptionP);
         var sizeTd = $("<td></td>").text(file.size).attr("class", "size");
         
+
         var tr = $("<tr></tr>");
         tr.append(iconTd);
         tr.append(fileTd);

@@ -1,10 +1,15 @@
 package webfs.service;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,7 +21,8 @@ import webfs.model.FileProxy;
 @Controller
 @RequestMapping(value = "/ls")
 public class LsService {
-	private String basePath = "/";
+	@Autowired
+	private String basePath;
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public @ResponseBody List<FileProxy> list(@RequestParam String wpath) {
@@ -34,7 +40,32 @@ public class LsService {
 			File[] files = directory.listFiles();
 			if(files != null) {
 				for (File file : files) {
-					FileProxy fileProxy = new FileProxy(file);
+				
+					FileProxy fileProxy = null;
+					
+					File data = new File(file.getAbsolutePath() + ".wfs");
+					if(!data.exists()) {
+						fileProxy = new FileProxy(file);
+					} else { 
+						try {
+							FileReader fr = new FileReader(data);
+							BufferedReader br = new BufferedReader(fr);
+							
+							StringBuffer sb = new StringBuffer();
+							
+							String line;
+							while((line = br.readLine()) != null) {
+								sb.append(line);
+								sb.append("\n");
+							}
+							fileProxy = new FileProxy(file, sb.toString());
+							
+						} catch (IOException e) {
+							//TODO: CATCH!
+							e.printStackTrace();
+						}
+					}
+					
 					proxy.add(fileProxy);
 				}
 			}
@@ -45,4 +76,7 @@ public class LsService {
 		return null;
 	}
 
+	public void setBasePath(String basePath) {
+		this.basePath = basePath;
+	}
 }

@@ -12,10 +12,16 @@
 	<context:annotation-config />
 	<mvc:annotation-driven />
 
-	<bean id="lsService" class="webfs.service.LsService"></bean>
-	<bean id="openService" class="webfs.service.OpenService"></bean>
+	<bean name="basePath" class="java.lang.String">
+	    <constructor-arg value="/tmp" />
+	</bean>
 	
-	
+	<bean id="lsService" class="webfs.service.LsService">
+		<property name="basePath" ref="basePath" />
+	</bean>
+	<bean id="openService" class="webfs.service.OpenService">
+		<property name="basePath" ref="basePath" />
+	</bean>
 
 	<mvc:resources mapping="/**" location="/" />
 </beans>

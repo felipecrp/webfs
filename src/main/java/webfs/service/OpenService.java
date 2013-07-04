@@ -8,6 +8,7 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping(value = "/open")
 public class OpenService {
-
-	private String basePath = "/";
+	@Autowired
+	private String basePath;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public void open(@RequestParam String wpath, HttpServletResponse response) {
@@ -46,4 +47,7 @@ public class OpenService {
 		}
 	}
 
+	public void setBasePath(String basePath) {
+		this.basePath = basePath;
+	}
 }
