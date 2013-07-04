@@ -23,3 +23,7 @@ td span.file, td span.directory {
 #fileloader {
 	display: none;
 }
+
+#filebrowser td {
+	cursor: pointer;
+}
