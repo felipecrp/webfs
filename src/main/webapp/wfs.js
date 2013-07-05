@@ -87,7 +87,21 @@ $(document).ready(function() {
 
     }
 
-    openRoot();
+    /* http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values */ 
+    function getParameterByName(name) {
+        name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+        return results == null ? null : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+
+    var wpath = getParameterByName("wpath");
+    if(wpath === null) {
+        openRoot();
+    } else {
+        openRoot();
+        openDirectory(wpath);
+    }
     
 });
 

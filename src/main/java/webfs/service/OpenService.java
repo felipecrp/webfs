@@ -34,7 +34,7 @@ public class OpenService {
 			response.setContentType("application/octet-stream");
 			response.setHeader("Content-Disposition", "attachment; filename=" + file.getName());
 			try {
-				FileInputStream fis = new FileInputStream(new File(path));
+				FileInputStream fis = new FileInputStream(file);
 				BufferedInputStream bis = new BufferedInputStream(fis);
 				
 				IOUtils.copy(bis, response.getOutputStream());
