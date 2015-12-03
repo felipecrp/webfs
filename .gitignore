@@ -1,5 +1,4 @@
 *.class
-
 # Package Files #
 *.jar
 *.war
@@ -9,3 +8,5 @@
 /.classpath
 .DS_Store
 /.project
+/bower_components
+/node_modules
