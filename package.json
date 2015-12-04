@@ -1,8 +1,8 @@
 {
   "dependencies": {
-    "gulp": "^3.9.0"
   },
   "devDependencies": {
-    "gulp": "^3.9.0"
+    "gulp": "^3.9.0",
+    "gulp-copy": "0.0.2"
   }
 }
